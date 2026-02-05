@@ -1,9 +1,11 @@
 package hello.springmvc.basic.request;
 
+import hello.springmvc.basic.HelloData;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -82,6 +84,28 @@ public class RequestParamController {
     @RequestMapping("/request-param-map")
     public String reqeustParamMap(@RequestParam Map<String, Objects> paramMap){
         log.info("username={}, age={}",paramMap.get("username") ,paramMap.get("age") );
+        return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    //public String modelAttributeV1(@RequestParam String username, @RequestParam int age){
+    public String modelAttributeV1(@ModelAttribute HelloData helloData){
+        /*HelloData helloData = new HelloData();
+        helloData.setUsername(username);
+        helloData.setAge(age);*/
+
+        //log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+        log.info("helloData={}", helloData); //@data에 @ToString이 포함되어 있으므로 가능
+        return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    //public String modelAttributeV1(@RequestParam String username, @RequestParam int age){
+    public String modelAttributeV2(HelloData helloData){ //@ModelAttribute도 생략가능
+
+        log.info("helloData={}", helloData);
         return "ok";
     }
 
