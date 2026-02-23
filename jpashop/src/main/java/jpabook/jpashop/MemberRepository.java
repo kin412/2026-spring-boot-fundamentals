@@ -10,13 +10,13 @@ public class MemberRepository {
     @PersistenceContext // 엔티티 매니저 autowired 해줌
     private EntityManager em;
 
-    public Long save(Member member) {
-        em.persist(member);
-        return member.getId();
+    public Long save(MemberInitTest memberInitTest) {
+        em.persist(memberInitTest);
+        return memberInitTest.getId();
     }
 
-    public Member find(Long id) {
-        return em.find(Member.class, id);
+    public MemberInitTest find(Long id) {
+        return em.find(MemberInitTest.class, id);
     }
 
 }
