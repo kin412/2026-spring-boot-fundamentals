@@ -2,12 +2,15 @@ package jpabook.jpashop.domain;
 
 import jakarta.persistence.*;
 import jpabook.jpashop.domain.item.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "order_item")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
     @Id @GeneratedValue
     @Column(name = "order_item_id")
@@ -23,4 +26,36 @@ public class OrderItem {
 
     private int orderPrice; //주문 가격
     private int count; //주문 수량
+
+    /*jpa는 생성자를 protected를 허용해줌
+      이렇게 생성자를 만들어 둠으로써, new OrderItem을 못하게 막고 static으로 생성하는 것을 강제할 수 있음
+      근데 이것도 lombok의 @NoArgsConstructor(access = AccessLevel.PROTECTED) 로 설정가능함
+     */
+    //protected OrderItem() {}
+
+    //생성 메서드
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
+
+        item.removeStock(count);
+
+        return orderItem;
+    }
+
+    //비즈니스 로직
+    public void cancel() {
+        getItem().addStock(count);
+    }
+
+    //조회 로직
+    /*
+    주문상품 전체 가격 조회
+     */
+    public int getTotalPrice() {
+        return getOrderPrice() * getCount();
+    }
+
 }

@@ -70,7 +70,7 @@ class MemberServiceTest {
                 //.as("예외가 발생해야한다!")
                 //.withFailMessage("예외가 발생해야 한다!")
                 .isInstanceOf(IllegalStateException.class);
-
+        //fail("예외가 발생해야한다."); // try catch시에만 이거대신 assertThatThrownBy
 
     }
 
