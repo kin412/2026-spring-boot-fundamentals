@@ -5,7 +5,7 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MemberRepository {
+public class MemberFirstRepository {
 
     @PersistenceContext // 엔티티 매니저 autowired 해줌
     private EntityManager em;

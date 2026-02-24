@@ -11,7 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 class MemberInitTestRepositoryTest {
 
-    @Autowired MemberRepository memberRepository;
+    @Autowired
+    MemberFirstRepository memberFirstRepository;
 
     @Test
     @Transactional // @Transactional은 테스트에 있으면 끝나고 db를 롤백해버림
@@ -22,8 +23,8 @@ class MemberInitTestRepositoryTest {
         memberInitTest.setUsername("memberA");
 
         //when
-        Long saveId = memberRepository.save(memberInitTest);
-        MemberInitTest findMemberInitTest = memberRepository.find(saveId);
+        Long saveId = memberFirstRepository.save(memberInitTest);
+        MemberInitTest findMemberInitTest = memberFirstRepository.find(saveId);
 
         //then
         Assertions.assertThat(findMemberInitTest.getId()).isEqualTo(memberInitTest.getId());
