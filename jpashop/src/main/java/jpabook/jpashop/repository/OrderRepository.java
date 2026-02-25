@@ -107,4 +107,22 @@ public class OrderRepository {
 
     }
 
+    public List<Order> findAllWithMemberDelivery() {
+        return em.createQuery("select o from Order o" +
+                " join fetch o.member m" +
+                " join fetch o.delivery d", Order.class
+        ).getResultList();
+    }
+
+    //dto 반환시 쿼리에 new 추가
+    //OrderSimpleQueryRepository.java 로 따로관리
+    //repository/order/simplequery에서 이런 쿼리용 객체를 따로관리
+    /*public List<OrderSimpleQueryDto> findOrderDtos() {
+        return em.createQuery(
+                "select new " +
+                        "jpabook.jpashop.repository.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address) from Order o" +
+                " join o.member m" +
+                " join o.delivery d", OrderSimpleQueryDto.class)
+                .getResultList();
+    }*/
 }
