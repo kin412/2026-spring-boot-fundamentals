@@ -2,9 +2,8 @@ package jpabook.jpashop.service;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.repository.MemberRepository;
-import lombok.AllArgsConstructor;
+import jpabook.jpashop.repository.MemberRepositoryOld;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +17,7 @@ import java.util.List;
 public class MemberService {
 
     //@Autowired - 이렇게 해도되지만 최근 추세는 테스트를 위해서 생성자 인젝션 하는경우가 대부분임
+    //private final MemberRepositoryOld memberRepository;
     private final MemberRepository memberRepository;
 
     //setter 인젝션 - 테스트할때도 그냥 주입하고 싶은거 주입하면됨.
@@ -62,12 +62,15 @@ public class MemberService {
 
 
     public Member findOne(Long memberId) {
-        return memberRepository.findOne(memberId);
+
+        //return memberRepository.findOne(memberId);
+        return memberRepository.findById(memberId).get();
     }
 
     @Transactional
     public void update(Long id, String name) {
-        Member member = memberRepository.findOne(id);
+        //Member member = memberRepository.findOne(id);
+        Member member = memberRepository.findById(id).get();
         member.setName(name);
 
     }
