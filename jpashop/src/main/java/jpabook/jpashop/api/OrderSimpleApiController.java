@@ -60,7 +60,7 @@ public class OrderSimpleApiController {
     }
 
     //n+1 문제를 fetch join을 써서 해결 - 김영한 강사님은 이방법을 추천
-    @GetMapping("/api/v3/simple-orders")
+    @GetMapping(" ")
     public List<SimpleOrderDto> ordersV3() {
         List<Order> orders = orderRepository.findAllWithMemberDelivery();
 
