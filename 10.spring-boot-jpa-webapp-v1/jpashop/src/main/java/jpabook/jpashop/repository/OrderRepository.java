@@ -16,10 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class OrderRepository {
 
-    @Autowired
+    //@Autowired
     private final EntityManager em;
     private final JPAQueryFactory query;
 
